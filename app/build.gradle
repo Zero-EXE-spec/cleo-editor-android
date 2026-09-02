@@ -1,21 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        release {
-            Properties keystoreProps = new Properties()
-            keystoreProps.load(new FileInputStream(file('keystore.config')))
-
-            keyAlias keystoreProps['keyAlias']
-            keyPassword keystoreProps['keyPassword']
-            storePassword keystoreProps['storePassword']
-            storeFile file(keystoreProps['keyPath'])
-        }
-    }
-
     namespace 'com.fastsmartsystem.cleoeditor'
     compileSdk 35
-    buildToolsVersion '35.0.0'
 
     defaultConfig {
         applicationId "com.fastsmartsystem.cleoeditor"
@@ -30,9 +17,12 @@ android {
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+        }
+        debug {
+            debuggable true
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -47,8 +37,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
-
-    // ViewModel and LiveData - work with save viewModel  state
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.navigation:navigation-ui:2.8.6'
     annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.8.7'
